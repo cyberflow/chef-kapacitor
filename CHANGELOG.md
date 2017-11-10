@@ -2,9 +2,13 @@
 
 This file is used to list changes made in each version of the kapacitor cookbook.
 
+0.0.5
+-----
+- Cyberflow - add ability to rewrite kapacitor tasks
+
 0.0.3
 -----
-- Cyberfl - add kapacitor_handler resource
+- Cyberflow - add kapacitor_handler resource
 
 0.0.1
 -----

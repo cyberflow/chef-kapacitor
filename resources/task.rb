@@ -5,6 +5,7 @@
 property :id, String, name_property: true
 property :host, String, default: 'localhost'
 property :port, Integer, default: 9092
+property :rewrite, [TrueClass, FalseClass], default: false
 property :type, String
 property :dbrps, Array
 property :script, String
@@ -34,6 +35,10 @@ action :create do
   if task.nil?
     converge_by("Creating task #{new_resource.name}") do
       create_task(options, task_options)
+    end
+  elsif rewrite
+    converge_by("Update task #{new_resource.name}") do
+      update_task(options, task_options)
     end
   end
 end

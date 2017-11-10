@@ -14,6 +14,16 @@ kapacitor_task 'test' do
   action %i[create enable]
 end
 
+# update created task
+kapacitor_task 'test' do
+  id 'cpu_alert'
+  type 'stream'
+  dbrps [{ 'db' => 'collectd', 'rp' => 'one_hour' }]
+  script "stream\n    |from()\n        .measurement('cpu_value')\n        .where(lambda: \"type_instance\" == 'idle' AND \"type\" == 'percent')\n    |alert()\n        .crit(lambda: \"value\" \u003c 70)\n                .log('/tmp/alerts.log')\n"
+  rewrite true
+  action %i[create enable]
+end
+
 # Create a test hendler
 kapacitor_handler 'test_handler' do
   id 'test_handler'

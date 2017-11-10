@@ -12,6 +12,16 @@ module KapacitorCookbook
       nil
     end
 
+    def update_task(options, task)
+      options[:method] = 'Patch'
+      options[:endpoint] = '/kapacitor/v1/tasks/' + task[:id]
+
+      task = _do_request(options, task.to_json)
+
+      return if task['error'] == 'task does not exist, cannot update'
+      task
+    end
+
     # Fetch the json representation of the task
     # curl http://localhost:9092/kapacitor/v1/tasks/sample-task
     def get_task(options, task)
