@@ -38,6 +38,7 @@ action :create do
     end
   elsif rewrite
     converge_by("Update task #{new_resource.name}") do
+      disable_task(options, task_options)
       update_task(options, task_options)
     end
   end

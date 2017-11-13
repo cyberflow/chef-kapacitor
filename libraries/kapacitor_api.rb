@@ -43,6 +43,15 @@ module KapacitorCookbook
       _do_request(options, enable.to_json)
     end
 
+    def disable_task(options, task)
+      options[:method] = 'Patch'
+      options[:endpoint] = '/kapacitor/v1/tasks/' + task[:id]
+
+      enable = { 'status' => 'disabled' }
+
+      _do_request(options, enable.to_json)
+    end
+
     def delete_task(options, task)
       options[:method] = 'Delete'
       options[:endpoint] = '/kapacitor/v1/tasks/' + task[:id]
