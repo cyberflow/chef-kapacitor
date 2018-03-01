@@ -31,5 +31,6 @@ default['kapacitor']['apt']['components'] = %w[stable]
 default['kapacitor']['apt']['distribution'] = node['lsb']['codename']
 default['kapacitor']['apt']['action'] = :add
 default['kapacitor']['apt']['key'] = 'https://repos.influxdata.com/influxdb.key'
+default['kapacitor']['apt']['arch'] = node['kernel']['machine'] =~ /x86_64/ ? 'amd64' : 'i386'
 
 default['kapacitor']['toml_gem_version'] = '~> 0.1.2'

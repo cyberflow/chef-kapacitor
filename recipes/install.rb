@@ -26,7 +26,7 @@ when 'debian'
       uri node['kapacitor']['apt']['uri']
       components node['kapacitor']['apt']['components']
       key node['kapacitor']['apt']['key']
-      arch node['kernel']['machine'] =~ /x86_64/ ? 'amd64' : 'i386'
+      arch node['kapacitor']['apt']['arch']
       distribution node['kapacitor']['apt']['distribution']
       action node['kapacitor']['apt']['action']
     end
