@@ -7,7 +7,8 @@ module KapacitorCookbook
     def create_task(options, task)
       options[:method] = 'Post'
       options[:endpoint] = '/kapacitor/v1/tasks'
-      _do_request(options, task.to_json)
+      task = _do_request(options, task.to_json)
+      raise StandardError, "task['error']" if task['error'] 
     rescue BackendError
       nil
     end
