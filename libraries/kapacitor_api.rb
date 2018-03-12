@@ -8,7 +8,7 @@ module KapacitorCookbook
       options[:method] = 'Post'
       options[:endpoint] = '/kapacitor/v1/tasks'
       task = _do_request(options, task.to_json)
-      raise StandardError, "task['error']" if task['error'] 
+      raise StandardError, "#{task['error']}" if task['error'] 
     rescue BackendError
       nil
     end
