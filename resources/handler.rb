@@ -30,5 +30,9 @@ action :create do
     converge_by("Creating handler #{new_resource.name}") do
       create_handler(options, new_resource.topic, handler_options)
     end
+  else
+    converge_by("Update handler #{new_resource.name}") do
+      update_handler(options, new_resource.topic, handler_options)
+    end
   end
 end

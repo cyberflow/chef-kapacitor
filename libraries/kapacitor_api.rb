@@ -79,6 +79,15 @@ module KapacitorCookbook
       _do_request(options, handler.to_json)
     end
 
+    def update_handler(options, topic, handler)
+      options[:method] = 'Put'
+      options[:endpoint] = '/kapacitor/v1/alerts/topics/' +  topic + '/handlers/' + handler[:id]
+
+      handler = _do_request(options, handler.to_json)
+
+      handler
+    end
+
     private
 
     def _do_request(options, payload = nil)
@@ -88,6 +97,8 @@ module KapacitorCookbook
                   Net::HTTP::Post.new(options[:endpoint])
                 when 'Patch'
                   Net::HTTP::Patch.new(options[:endpoint])
+                when 'Put'
+                  Net::HTTP::Put.new(options[:endpoint])
                 when 'Delete'
                   Net::HTTP::Delete.new(options[:endpoint])
                 else
