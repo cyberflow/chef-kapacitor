@@ -62,5 +62,6 @@ end
 kapacitor_version = node['kapacitor']['version'] + '-' + node['kapacitor']['release']
 package 'kapacitor' do
   version kapacitor_version unless node['kapacitor']['ignore_version']
+  options node['kapacitor']['package_options']
   notifies :restart, 'service[kapacitor]' if node['kapacitor']['notify_restart'] && !node['kapacitor']['disable_service']
 end

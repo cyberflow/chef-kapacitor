@@ -15,6 +15,11 @@ default['kapacitor']['conf_file'] = ::File.join(node['kapacitor']['conf_dir'], '
 
 default['kapacitor']['setup_repository'] = true
 
+default['kapacitor']['package_options'] = value_for_platform_family(
+  'debian' => '--force-yes -o Dpkg::Options::="--force-confdef" -o Dpkg::Options::="--force-confold"',
+  'default' => ''
+)
+
 default['kapacitor']['yum']['baseurl'] = value_for_platform(
   %w[amazon] => { 'default' => 'https://repos.influxdata.com/rhel/6/$basearch/stable' },
   %w[centos redhat fedora] => { 'default' => 'https://repos.influxdata.com/rhel/6/$basearch/stable' }
