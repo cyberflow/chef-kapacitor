@@ -19,7 +19,7 @@ module KapacitorCookbook
 
       task = _do_request(options, task.to_json)
 
-      return if task['error'] == 'task does not exist, cannot update'
+      raise StandardError, "#{task['error']}" unless task['error'].empty?
       task
     end
 
