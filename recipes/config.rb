@@ -29,6 +29,6 @@ require 'toml'
 end
 
 file node['kapacitor']['conf_file'] do
-  content TOML.dump(node['kapacitor']['config'])
+  content TOML::Generator.new(node['kapacitor']['config']).body
   notifies :restart, 'service[kapacitor]' if node['kapacitor']['notify_restart'] && !node['kapacitor']['disable_service']
 end
