@@ -2,6 +2,10 @@
 
 This file is used to list changes made in each version of the kapacitor cookbook.
 
+0.0.8
+-----
+- stampit - New template resource, add possibility of specifying template in task definition
+
 0.0.7
 -----
 - Cyberflow - add ability to update handlers

@@ -15,10 +15,10 @@ include KapacitorCookbook::KapacitorApi
 action :create do
   options = {
     host: new_resource.host,
-    port: new_resource.port
+    port: new_resource.port,
   }
   handler_options = {
-    id: new_resource.id
+    id: new_resource.id,
   }
   handler_options.merge!(new_resource.actions[0])
 
