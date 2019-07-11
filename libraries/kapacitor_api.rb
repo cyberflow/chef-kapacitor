@@ -8,7 +8,7 @@ module KapacitorCookbook
       options[:method] = 'Post'
       options[:endpoint] = '/kapacitor/v1/tasks'
       task = _do_request(options, task.to_json)
-      raise StandardError, "#{task['error']}" unless task['error'].empty?
+      raise StandardError, task['error'].to_s unless task['error'].empty?
     rescue BackendError
       nil
     end
@@ -19,7 +19,7 @@ module KapacitorCookbook
 
       task = _do_request(options, task.to_json)
 
-      raise StandardError, "#{task['error']}" unless task['error'].empty?
+      raise StandardError, task['error'].to_s unless task['error'].empty?
       task
     end
 
@@ -60,6 +60,42 @@ module KapacitorCookbook
       _do_request(options, enable.to_json)
     end
 
+    def create_template(options, template)
+      options[:method] = 'Post'
+      options[:endpoint] = '/kapacitor/v1/templates'
+      template = _do_request(options, template.to_json)
+      raise StandardError, template['error'].to_s unless template['error'].empty?
+    rescue BackendError
+      nil
+    end
+
+    def update_template(options, template)
+      options[:method] = 'Patch'
+      options[:endpoint] = '/kapacitor/v1/templates/' + template[:id]
+
+      template = _do_request(options, template.to_json)
+
+      raise StandardError, template['error'].to_s unless template['error'].empty?
+      template
+    end
+
+    def get_template(options, template)
+      options[:method] = 'Get'
+      options[:endpoint] = '/kapacitor/v1/templates/' + template[:id]
+
+      template = _do_request(options)
+
+      return if template['error'] == 'no template exists'
+      template
+    end
+
+    def delete_template(options, template)
+      options[:method] = 'Delete'
+      options[:endpoint] = '/kapacitor/v1/templates/' + template[:id]
+
+      _do_request(options, enable.to_json)
+    end
+
     # Fetch the json representation of the handler
     # curl http://localhost:9092/kapacitor/v1preview/alerts/topics/<topic id>/handlers/<handler id>.
     def get_handler(options, topic, handler_id)
@@ -82,7 +118,7 @@ module KapacitorCookbook
 
     def update_handler(options, topic, handler)
       options[:method] = 'Put'
-      options[:endpoint] = '/kapacitor/v1/alerts/topics/' +  topic + '/handlers/' + handler[:id]
+      options[:endpoint] = '/kapacitor/v1/alerts/topics/' + topic + '/handlers/' + handler[:id]
 
       handler = _do_request(options, handler.to_json)
 
@@ -126,7 +162,7 @@ module KapacitorCookbook
       tries = opts.fetch :tries
       exceptions = Array(opts.fetch(:exceptions))
 
-      return if tries.zero?
+      return if tries == 0
 
       begin
         yield

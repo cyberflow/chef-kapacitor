@@ -30,7 +30,7 @@ if node['kapacitor']['default_config_influxdb']
       'default' => true,
       'name' => 'localhost',
       'urls' => [
-        'http://localhost:8086'
+        'http://localhost:8086',
       ],
       'username' => '',
       'password' => '',
@@ -39,8 +39,8 @@ if node['kapacitor']['default_config_influxdb']
       'udp-buffer' => 1_000,
       'udp-read-buffer' => 0,
       'subscriptions' => {},
-      'excluded-subscriptions' => {}
-    }
+      'excluded-subscriptions' => {},
+    },
   ]
 end
 
@@ -49,7 +49,7 @@ chef_gem 'toml' do
   version node['kapacitor']['toml_gem_version']
 end
 
-include_recipe 'yum-plugin-versionlock::default' if %w[rhel amazon].include?(node['platform_family'])
+include_recipe 'yum-plugin-versionlock::default' if %w(rhel amazon).include?(node['platform_family'])
 include_recipe 'kapacitor::install'
 include_recipe 'kapacitor::config'
 include_recipe 'kapacitor::service'

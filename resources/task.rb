@@ -10,6 +10,7 @@ property :type, String
 property :dbrps, Array
 property :script, String
 property :vars, Hash
+property :template, String
 
 default_action :create
 
@@ -18,14 +19,15 @@ include KapacitorCookbook::KapacitorApi
 action :create do
   options = {
     host: new_resource.host,
-    port: new_resource.port
+    port: new_resource.port,
   }
   task_options = {
     id: new_resource.id,
     type: new_resource.type,
     dbrps: new_resource.dbrps,
     script: new_resource.script,
-    vars: new_resource.vars
+    vars: new_resource.vars,
+    :'template-id' => new_resource.template,
   }
 
   # Find wether task already exists
@@ -47,10 +49,10 @@ end
 action :enable do
   options = {
     host: new_resource.host,
-    port: new_resource.port
+    port: new_resource.port,
   }
   task_options = {
-    id: new_resource.id
+    id: new_resource.id,
   }
 
   # Find wether task already exists
@@ -67,10 +69,10 @@ end
 action :delete do
   options = {
     host: new_resource.host,
-    port: new_resource.port
+    port: new_resource.port,
   }
   task_options = {
-    id: new_resource.id
+    id: new_resource.id,
   }
 
   # Find wether task already exists
