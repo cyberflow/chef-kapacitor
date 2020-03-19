@@ -38,7 +38,7 @@ action :create do
     converge_by("Creating task #{new_resource.name}") do
       create_task(options, task_options)
     end
-  elsif rewrite
+  elsif new_resource.rewrite
     converge_by("Update task #{new_resource.name}") do
       disable_task(options, task_options)
       update_task(options, task_options)
